@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Components/Header'; 
 import Footer from './Components/Footer'; 
 import ServicesSection from './Components/ServicesSection';
+import { LanguageProvider } from './context/LanguageContext';
 
 
 const PageStyles = () => (
@@ -465,12 +466,19 @@ const PageStyles = () => (
   /* --- Under Construction Page (New Style) --- */
 
 }
+  /* ........................... Weather .......................*/
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
   `}</style>
 );
 
 function App() {
   
   return (
+    <LanguageProvider>
     <>
       <PageStyles />
       <Header />  
@@ -498,6 +506,7 @@ function App() {
       
       <Footer />
     </>
+    </LanguageProvider>
   );
 }
 
