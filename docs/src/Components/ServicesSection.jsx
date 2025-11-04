@@ -40,7 +40,7 @@ const ServicesSection = () => {
   return (
     <section
       id="services"
-      className="pt-[32rem] pb-[8rem] px-6 bg-gradient-to-br from-[#DFF9FB] via-[#E8FFFE] to-[#C8F4F9]
+      className="pt-[32rem] pb-[9rem] px-6 bg-gradient-to-br from-[#DFF9FB] via-[#E8FFFE] to-[#C8F4F9]
                  min-h-[25vh] flex flex-wrap justify-center gap-2 sm:gap-10
                  transition-all duration-700 overflow-hidden"
     >
