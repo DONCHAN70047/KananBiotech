@@ -564,8 +564,7 @@ button:focus-visible {
   }
 }
 
-/* ........................................ Chatbot CSS .................................. */
-/* ............................. DESKTOP .......................... */
+/* ............................................... Chatbot CSS .....................................*/
 /* ===========================
    💻 Desktop Styles
 =========================== */
@@ -579,10 +578,10 @@ button:focus-visible {
   animation: float 3s ease-in-out infinite;
 }
 
-/* 🟢 Increased robot image size for desktop */
+/* Floating robot image */
 .chatbot-robot {
-  width: 160px;   /* Increased size */
-  height: 190px;  /* Increased size */
+  width: 160px;
+  height: 190px;
   border-radius: 50%;
   object-fit: contain;
   transition: transform 0.3s ease;
@@ -592,10 +591,13 @@ button:focus-visible {
   transform: scale(1.05);
 }
 
-/* Floating animation */
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 /* Chat window */
@@ -644,31 +646,58 @@ button:focus-visible {
   cursor: pointer;
 }
 
+/* Messages Area */
 .chatbot-messages {
   flex: 1;
   padding: 15px;
   overflow-y: auto;
+  background-color: #ece5dd;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
 }
 
+.chatbot-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chatbot-messages::-webkit-scrollbar-thumb {
+  background-color: #bdbdbd;
+  border-radius: 5px;
+}
+
+/* Message bubbles */
 .chatbot-msg {
   max-width: 75%;
   padding: 10px 14px;
   margin-bottom: 10px;
   border-radius: 20px;
   font-size: 0.95rem;
+  line-height: 1.4;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 .chatbot-msg.bot {
-  background: #fff;
+  background: #ffffff;
   align-self: flex-start;
+  color: #222;
 }
 
 .chatbot-msg.user {
   background: #dcf8c6;
   align-self: flex-end;
+  color: #000; /* ✅ fixed visibility of user text */
 }
 
+/* Typing message animation */
+.chatbot-msg.bot.typing::after {
+  content: "💭 Typing...";
+  color: #888;
+  font-style: italic;
+}
+
+/* Input Section */
 .chatbot-input-container {
   display: flex;
   align-items: center;
@@ -684,6 +713,12 @@ button:focus-visible {
   border: 1px solid #ccc;
   outline: none;
   font-size: 1rem;
+  color: #222; /* ✅ visible text while typing */
+  background-color: #fff;
+}
+
+.chatbot-input::placeholder {
+  color: #888;
 }
 
 .chatbot-send-btn {
@@ -702,7 +737,70 @@ button:focus-visible {
   transform: scale(1.05);
 }
 
-/* ............................. MOBILE .......................... */
+/* ===========================
+   🧠 HTML Formatting for Bot Replies
+=========================== */
+
+/* Bold text */
+.chatbot-msg.bot b {
+  font-weight: 700;
+  color: #075e54;
+}
+
+/* Headings from ### */
+.chatbot-msg.bot h1,
+.chatbot-msg.bot h2,
+.chatbot-msg.bot h3,
+.chatbot-msg.bot h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #075e54;
+  margin: 8px 0 4px;
+  display: block;
+}
+
+/* Remove any Markdown-style ### prefixes */
+.chatbot-msg.bot h1::before,
+.chatbot-msg.bot h2::before,
+.chatbot-msg.bot h3::before,
+.chatbot-msg.bot h4::before {
+  content: "";
+}
+
+.chatbot-msg.bot ul {
+  margin: 6px 0 6px 20px;
+  padding: 0;
+}
+
+.chatbot-msg.bot li {
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.chatbot-msg.bot br {
+  margin-bottom: 6px;
+}
+
+.chatbot-msg.bot p {
+  margin: 5px 0;
+  line-height: 1.5;
+}
+
+.chatbot-msg.bot a {
+  color: #0b93f6;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.chatbot-msg.bot a:hover {
+  text-decoration: none;
+}
+
+/* Emojis slightly bigger for clarity */
+.chatbot-msg.bot, .chatbot-msg.user {
+  font-family: "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+}
+
 /* ===========================
    📱 Mobile Styles
 =========================== */
@@ -711,39 +809,24 @@ button:focus-visible {
   .chatbot-floating-btn {
     bottom: 10px;
     right: 10px;
-    animation: float 3s ease-in-out infinite;
   }
 
   .chatbot-robot {
-    width: 120px;   /* Optimized for phone */
+    width: 120px;
     height: 120px;
-    border-radius: 50%;
-    object-fit: contain;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
   }
 
   .chatbot-window {
     bottom: 0;
-    right: 1;
-    width: 80vw;
-    height: 50vh;
-    background: #ece5dd;
+    right: 0;
+    width: 90vw;
+    height: 60vh;
     border-radius: 15px 15px 0 0;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
   }
 
   .chatbot-header {
-    background: #075e54;
-    color: white;
-    display: flex;
-    align-items: center;
     gap: 8px;
     padding: 8px 10px;
-    border-radius: 15px 15px 0 0;
   }
 
   .chatbot-header-img {
@@ -752,37 +835,35 @@ button:focus-visible {
   }
 
   .chatbot-header-title {
-    flex: 1;
     font-size: 0.9rem;
   }
 
-  .chatbot-close {
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 1rem;
-  }
-
-  .chatbot-input-container {
-    padding: 8px;
-    border-top: 1px solid #ccc;
-    background: #f0f0f0;
-  }
-
   .chatbot-input {
-    flex: 1;
     padding: 8px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
     font-size: 0.9rem;
   }
 
   .chatbot-send-btn {
-    padding: 9px 10px;
+    padding: 9px 12px;
     font-size: 0.9rem;
-    background: #25d366;
-    color: white;
-    border-radius: 20px;
-    border: none;
   }
 }
+
+/* ===========================
+   ✨ Markdown → Clean Formatting
+=========================== */
+
+.chatbot-msg.bot h3,
+.chatbot-msg.bot strong {
+  font-weight: 700;
+  color: #075e54;
+}
+
+.chatbot-msg.bot h3 {
+  margin-top: 10px;
+  margin-bottom: 4px;
+  font-size: 1rem;
+  display: block;
+}
+
+
